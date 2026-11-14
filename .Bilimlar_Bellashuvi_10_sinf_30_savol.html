@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informatika — Bilimlar bellashuvi</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b132b 0%, #1c2541 50%, #3a506b 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            margin-bottom: 12px;
+            color: #d1d5db;
+        }
+
+        .header-title {
+            font-size: 38px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 6px;
+            text-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #9ca3af;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 28px 32px;
+            width: 100%;
+            max-width: 850px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 3;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #e0e1dd;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: #7f8c8d;
+        }
+
+        input:focus, select:focus {
+            border-color: #00b4d8;
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        select option {
+            background-color: #1b263b;
+            color: #ffffff;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(0, 180, 216, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 22px rgba(0, 180, 216, 0.8), 0 0 35px rgba(134, 227, 206, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(0, 180, 216, 0.4); }
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            background: linear-gradient(90deg, #bbf2f6 0%, #86e3ce 50%, #7ee8fa 100%);
+            border: none;
+            border-radius: 14px;
+            color: #0d1b2a;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        .footer-note {
+            font-size: 12px;
+            color: #a0aab2;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        #gamePage { display: none; }
+
+        .info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff4e50, #f9d423, #00e676);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .task-title {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #facc15;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #ffffff;
+            margin-bottom: 25px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #00b4d8;
+        }
+
+        .option-btn.selected {
+            background: rgba(0, 180, 216, 0.3) !important;
+            border-color: #00b4d8 !important;
+        }
+
+        .match-row {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 15px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .match-label {
+            font-weight: 600;
+            font-size: 15px;
+            color: #e2e8f0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .nav-btn {
+            padding: 12px 28px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.2); }
+
+        .nav-instruction {
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+            flex-grow: 1;
+            padding: 0 10px;
+        }
+
+        #resultPage { display: none; text-align: center; }
+        .result-trophy { font-size: 40px; margin-bottom: 10px; }
+        .result-score { font-size: 48px; font-weight: 800; color: #facc15; margin: 15px 0; text-shadow: 0 0 20px rgba(250, 204, 21, 0.4); }
+        .result-msg { font-size: 16px; color: #e2e8f0; margin-bottom: 25px; }
+        .result-info-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 18px;
+            text-align: left;
+            margin-bottom: 30px;
+            display: inline-block;
+            width: 100%;
+            max-width: 500px;
+        }
+        .result-info-box p { margin-bottom: 8px; font-size: 14px; color: #cbd5e1; }
+        .btn-restart {
+            width: 100%;
+            max-width: 500px;
+            padding: 16px;
+            background: linear-gradient(90deg, #bbf2f6 0%, #86e3ce 50%, #7ee8fa 100%);
+            border: none;
+            border-radius: 14px;
+            color: #0d1b2a;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            animation: pulseGlow 2s infinite ease-in-out;
+            margin-bottom: 15px;
+        }
+        .result-footer { font-size: 12px; color: #94a3b8; margin-top: 10px; }
+
+        @media (max-width: 768px) {
+            .form-grid, .match-row { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="badge">🛡️ INFORMATIKA • BILIMLAR BELLASHUVI</div>
+    <h1 class="header-title">✨ BILIMLAR BELLASHUVI ✨</h1>
+    <p class="subtitle">Test va moslashtirish topshiriqlari · Har bir to'g'ri javob uchun qarsak!</p>
+
+    <!-- 1-SAHIFA: MA'LUMOT KIRITISH -->
+    <div class="card" id="startPage">
+        <h2 class="card-title">Ishtirokchi ma'lumotlari</h2>
+        <div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Viloyat</label>
+                    <input type="text" id="regionInput" placeholder="Masalan: Buxoro viloyati">
+                </div>
+                <div class="form-group">
+                    <label>Tuman / shahar</label>
+                    <input type="text" id="districtInput" placeholder="Masalan: Shofirkon tumani">
+                </div>
+                <div class="form-group">
+                    <label>Maktab</label>
+                    <input type="text" id="schoolInput" placeholder="Masalan: 26-maktab">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label>Sinfni tanlang</label>
+                <select id="classSelect">
+                    <option value="5-A">5-A sinf</option>
+                    <option value="5-B">5-B sinf</option>
+                    <option value="6-A">6-A sinf</option>
+                    <option value="7-A">7-A sinf</option>
+                    <option value="7-B">7-B sinf</option>
+                    <option value="8-A">8-A sinf</option>
+                    <option value="8-B">8-B sinf</option>
+                    <option value="9-A" selected>9-B sinf</option>
+                    <option value="10-A">10-A sinf</option>
+                    <option value="11-A">11-A sinf</option>
+                </select>
+            </div>
+
+            <div class="form-group full-width" style="margin-bottom: 20px;">
+                <label>Familiyasi va ismi</label>
+                <input type="text" id="fullnameInput" placeholder="Familiya, ism">
+            </div>
+
+            <!-- TYPE="BUTTON" QILIB O'ZGARTIRILDI KAFOLATLI ISHLASHI UCHUN -->
+            <button type="button" class="btn-submit" onclick="startQuiz()">🚀 O‘yinni boshlash</button>
+
+            <p class="footer-note">
+                Ovoz effektlari qurilmangizda ishlashi uchun o‘yinni boshlash tugmasini bosing.
+            </p>
+              <p class="footer-note">
+                Muallif:Ikrom Rayxonoviç Xolov. Özbekiston,Buxoro,Şofirkon,26_sonli umumiy örta ta`lim maktabi.
+            </p>
+        </div>
+    </div>
+
+    <!-- 2-SAHIFA: O'YIN TESTI -->
+    <div class="card" id="gamePage">
+        <div class="info-bar">
+            <span class="user-name" id="displayUserName">Ishtirokchi</span>
+            <span class="progress-text" id="progressText">1 / 15</span>
+            <span class="score-text" id="scoreText">0 ball</span>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+
+        <div class="task-title" id="taskTitle">TOPSHIRIQ 1</div>
+        <div class="question-text" id="questionText">Savol yuklanmoqda...</div>
+
+        <div class="options-container" id="optionsContainer"></div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn" id="prevBtn" onclick="prevQuestion()">← Orqaga</button>
+            <span class="nav-instruction" id="navInstruction">Javobni belgilang.</span>
+            <p class="footer-note">
+                Muallif:Ikrom Rayxonoviç Xolov. Özbekiston,Buxoro,Şofirkon,26_sonli umumiy örta ta`lim maktabi.
+            </p>
+            <button class="nav-btn" id="nextBtn" onclick="nextQuestion()">Keyingi →</button>
+        </div>
+    </div>
+
+    <!-- 3-SAHIFA: YAKUNIY NATIJA -->
+    <div class="card" id="resultPage">
+        <div class="result-trophy">🏆</div>
+        <h2 class="card-title" style="margin-bottom: 5px;">Bellashuv yakunlandi!</h2>
+        <div class="result-score" id="finalScoreDisplay">0 / 0 (0%)</div>
+        <p class="result-msg" id="resultMessage">Ajoyib natija! Siz mavzularni juda yaxshi o‘zlashtirgansiz.</p>
+        
+        <div class="result-info-box">
+            <p><strong>Ishtirokchi:</strong> <span id="resName">---</span></p>
+            <p><strong>Hudud:</strong> <span id="resRegion">---</span></p>
+            <p><strong>Maktab:</strong> <span id="resSchool">---</span></p>
+        </div>
+
+        <div>
+            <button class="btn-restart" onclick="restartQuiz()">🔄 Qayta boshlash</button>
+        </div>
+        <p class="result-footer">Bilim — eng yorqin g‘alaba! ✨</p>
+        <p class="result-footer">Buxoro, Shofirkon, 26-Maktab. Muallif: Ikrom Rayxonovich Kholov ✨</p>
+    </div>
+
+    <!-- GOOGLE SHEETS GA YUBORISH -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+    <form id="hiddenForm" action="https://script.google.com/macros/s/AKfycby0hFlu_-fv7mYYe1KAD37tWe32pKLhwP5dudGEvfMIgUf_3KpVgjrIdClJHEL95r88Yw/exec" method="GET" target="hidden_iframe" style="display:none;">
+        <input type="hidden" name="name" id="f_name">
+        <input type="hidden" name="classVal" id="f_class">
+        <input type="hidden" name="region" id="f_region">
+        <input type="hidden" name="district" id="f_district">
+        <input type="hidden" name="school" id="f_school">
+        <input type="hidden" name="score" id="f_score">
+        <input type="hidden" name="percentage" id="f_percentage">
+    </form>
+
+    <!-- QARSAK OVOZI -->
+    <audio id="applauseSound" src="https://www.myinstants.com/media/sounds/applause.mp3" preload="auto"></audio>
+
+    <script>
+        const allClassQuestions = {
+           
+"5-A": [
+    {
+        type: "test",
+        q: "5-A sinf uchun: Kompyuterning asosiy qismlari qaysilar?",
+        options: [
+            "A. Monitor, klaviatura, sichqoncha, tizim bloki",
+            "B. Faqat qog'oz va ruchka",
+            "C. Faqat telefon",
+            "D. Mashina qismlari"
+        ],
+        correct: 0
+    },
+    {
+        type: "test",
+        q: "5-A sinf uchun: Rasmga o'zgartirishlar kiritish qanday nomlanadi?",
+        options: [
+            "A. Grafika",
+            "B. Tahrirlash",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 1
+    },
+    {
+        type: "test",
+        q: "5-A sinf uchun: Kompyuter yordamida yaratilgan tasvirlarning umumiy nomi qanday?",
+        options: [
+            "A. Line",
+            "B. Ikonka",
+            "C. Tahrirlash",
+            "D. Grafika"
+        ],
+        correct: 3
+    },
+    {
+        type: "test",
+        q: "5-A sinf uchun: Muayyan vazifaga möljallangan tugma yoki belgi nima?",
+        options: [
+            "A. Tahrirlash",
+            "B. Grafika",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 2
+    },
+    {
+        type: "test",
+        q: "5-A sinf uchun: Çiziq va möyqalam uskunalaridan foydalanib hosil qilingan geometrik şakl qanday nomlanadi?",
+        options: [
+            "A. Tahrirlash",
+            "B. Grafika",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 3
+    },
+     {
+        type: "test",
+        q: "5-A sinf uchun: Çiziş uçun möljallangan oq maydon qanday ataladii?",
+        options: [
+            "A. Tahrirlash",
+            "B. Grafika",
+            "C. Ikonka",
+            "D.Kanvas"
+        ],
+        correct: 3
+    },
+     {
+        type: "test",
+        q: "5-A sinf uchun: Oxirgi bajarilgan amalni bekor qilish qanday tugmaning vazifasi?",
+        options: [
+            "A. Tahrirlash",
+            "B. Grafika",
+            "C.Undo",
+            "D. Line"
+        ],
+        correct: 2
+    },
+     {
+        type: "test",
+        q: "5-A sinf uchun: Töğri çiziq çiziş uçun qaysi uskunadan foydalanasiz?",
+        options: [
+            "A. Tahrirlash",
+            "B. Grafika",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 3
+    },
+       {
+        type: "test",
+        q: "5-A sinf uchun: Line uskunasidan foydalanib töğri çiziq çizganda,siçqonçaning qaysi tugmasi bosib turiladi?",
+        options: [
+            "A. Tahrirlash",
+            "B. Çap",
+            "C. Ikonka",
+            "D. Öng"
+        ],
+        correct: 1
+    },
+      {
+        type: "test",
+        q: "5-A sinf uchun: Egri çiziq çiziş uchun Qanday uskunadan foydalaniladi?",
+        options: [
+            "A. Thahrirlash",
+            "B. Curved Line",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 1
+
+    },
+     {
+        type: "test",
+        q: "5-A sinf uchun: Line uskunasi yordamida tört burçak çiziş uçun neçta töğri çiziq çiziladi?",
+        options: [
+            "A. Oltita",
+            "B. Uçta",
+            "C. Törtta",
+            "D. Beşta"
+        ],
+        correct: 2
+    },
+     {
+        type: "test",
+        q: "5-A sinf uchun: Bayroq çiziş uçun qanday uskunalardan foydalaniladii?",
+        options: [
+            "A. Line va Curved line",
+            "B. Grafika va Line",
+            "C. Ikonka va Curved line",
+            "D. Line va ikonka"
+        ],
+        correct: 0
+    },
+     {
+        type: "test",
+        q: "5-A sinf uchun: Quyidagilardan qaysi biri çizma çiziş uçun xizmat qiladi?",
+        options: [
+            "A. MS Word",
+            "B. MS Power Point",
+            "C. MS Paint",
+            "D. MS Excel"
+        ],
+        correct: 2
+    },
+     {
+        type: "test",
+        q: "5-A sinf uchun: MS Paint dasturi qanday usulda işga tuşiriladi?",
+        options: [
+            "A. Tahrirlash tugmasi yordamida",
+            "B. Grafik usulda",
+            "C. Işçi stoldagi Ikonkasi bilan",
+            "D. Line boşqariş tugmasi yordamida"
+        ],
+        correct: 2
+    },
+    {
+        type: "test",
+        q: "5-A sinf uchun: 5-sinf uchun: MS Paint dasturi qanday usulda işga tuşiriladi?",
+        options: [
+            "A. Pusk",
+            "B. Grafika",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 0
+    },
+{
+                type: "match",
+                q: "Quyidagi moslashtirishda qurilma va uning vazifasini to‘g‘ri juftlang.",
+                pairs: [
+                    { label: "Klaviatura", answer: "Ma'lumot kiritish" },
+                    { label: "Monitor", answer: "Ma'lumotni chiqarish" },
+                    { label: "Printer", answer: "Qog'ozga chop etish" }
+                ],
+                optionsPool: ["Javobni tanlang", "Ma'lumot kiritish", "Ma'lumotni chiqarish", "Qog'ozga chop etish", "Ovoz yozish"]
+            }
+
+],
+             "5-B": [
+    {
+        type: "test",
+        q: "5-B sinf uchun: Kompyuterning asosiy qismlari qaysilar?",
+        options: [
+            "A. Monitor, klaviatura, sichqoncha, tizim bloki",
+            "B. Faqat qog'oz va ruchka",
+            "C. Faqat telefon",
+            "D. Mashina qismlari"
+        ],
+        correct: 0
+    },
+    {
+        type: "test",
+        q: "5-B sinf uchun: Rasmga o'zgartirishlar kiritish qanday nomlanadi?",
+        options: [
+            "A. Grafika",
+            "B. Tahrirlash",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 1
+    },
+    {
+        type: "test",
+        q: "5-B sinf uchun: Kompyuter yordamida yaratilgan tasvirlarning umumiy nomi qanday?",
+        options: [
+            "A. Line",
+            "B. Ikonka",
+            "C. Tahrirlash",
+            "D. Grafika"
+        ],
+        correct: 3
+    },
+    {
+        type: "test",
+        q: "5-B sinf uchun: Muayyan vazifaga möljallangan tugma yoki belgi nima?",
+        options: [
+            "A. Tahrirlash",
+            "B. Grafika",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 2
+    },
+    {
+        type: "test",
+        q: "5-B sinf uchun: Çiziq va möyqalam uskunalaridan foydalanib hosil qilingan geometrik şakl qanday nomlanadi?",
+        options: [
+            "A. Tahrirlash",
+            "B. Grafika",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 3
+    },
+     {
+        type: "test",
+        q: "5-B sinf uchun: Çiziş uçun möljallangan oq maydon qanday ataladii?",
+        options: [
+            "A. Tahrirlash",
+            "B. Grafika",
+            "C. Ikonka",
+            "D.Kanvas"
+        ],
+        correct: 3
+    },
+     {
+        type: "test",
+        q: "5-B sinf uchun: Oxirgi bajarilgan amalni bekor qilish qanday tugmaning vazifasi?",
+        options: [
+            "A. Tahrirlash",
+            "B. Grafika",
+            "C.Undo",
+            "D. Line"
+        ],
+        correct: 2
+    },
+     {
+        type: "test",
+        q: "5-B sinf uchun: Töğri çiziq çiziş uçun qaysi uskunadan foydalanasiz?",
+        options: [
+            "A. Tahrirlash",
+            "B. Grafika",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 3
+    },
+       {
+        type: "test",
+        q: "5-B sinf uchun: Line uskunasidan foydalanib töğri çiziq çizganda,siçqonçaning qaysi tugmasi bosib turiladi?",
+        options: [
+            "A. Tahrirlash",
+            "B. Çap",
+            "C. Ikonka",
+            "D. Öng"
+        ],
+        correct: 1
+    },
+      {
+        type: "test",
+        q: "5-B sinf uchun: Egri çiziq çiziş uchun Qanday uskunadan foydalaniladi?",
+        options: [
+            "A. Thahrirlash",
+            "B. Curved Line",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 1
+
+    },
+     {
+        type: "test",
+        q: "5-B sinf uchun: Line uskunasi yordamida tört burçak çiziş uçun neçta töğri çiziq çiziladi?",
+        options: [
+            "A. Oltita",
+            "B. Uçta",
+            "C. Törtta",
+            "D. Beşta"
+        ],
+        correct: 2
+    },
+     {
+        type: "test",
+        q: "5-B sinf uchun: Bayroq çiziş uçun qanday uskunalardan foydalaniladi?",
+        options: [
+            "A. Line va Curved line",
+            "B. Grafika va Line",
+            "C. Ikonka va Curved line",
+            "D. Line va ikonka"
+        ],
+        correct: 0
+    },
+     {
+        type: "test",
+        q: "5-B sinf uchun: Quyidagilardan qaysi biri çizma çiziş uçun xizmat qiladi?",
+        options: [
+            "A. MS Word",
+            "B. MS Power Point",
+            "C. MS Paint",
+            "D. MS Excel"
+        ],
+        correct: 2
+    },
+     {
+        type: "test",
+        q: "5-B sinf uchun: MS Paint dasturi qanday usulda işga tuşiriladi?",
+        options: [
+            "A. Tahrirlash tugmasi yordamida",
+            "B. Grafik usulda",
+            "C. Işçi stoldagi Ikonkasi bilan",
+            "D. Line boşqariş tugmasi yordamida"
+        ],
+        correct: 2
+    },
+    {
+        type: "test",
+        q: " 5-B sinf uchun: MS Paint dasturi qanday usulda işga tuşiriladi?",
+        options: [
+            "A. Pusk",
+            "B. Grafika",
+            "C. Ikonka",
+            "D. Line"
+        ],
+        correct: 0
+    },
+
+        {
+                type: "match",
+                q: "Quyidagi moslashtirishda qurilma va uning vazifasini to‘g‘ri juftlang.",
+                pairs: [
+                    { label: "Klaviatura", answer: "Ma'lumot kiritish" },
+                    { label: "Monitor", answer: "Ma'lumotni chiqarish" },
+                    { label: "Printer", answer: "Qog'ozga chop etish" }
+                ],
+                optionsPool: ["Javobni tanlang", "Ma'lumot kiritish", "Ma'lumotni chiqarish", "Qog'ozga chop etish", "Ovoz yozish"]
+            }
+  ],
+
+
+
+            "6-A": [
+                { type: "test", 
+                q: "6-A sinf uchun: Axborotning eng kichik o'lchov birligi  qanday nomlanadi?", 
+                options: [
+                     "A. Bit",
+                     "B. Bayt", 
+                     "C. Megabayt",
+                     "D. Kilobayt"], correct: 0 },
+
+                 { type: "match",
+                q: "Quyidagi moslashtirishda qurilma va uning vazifasini to‘g‘ri juftlang.",
+                pairs: [
+                    { label: "Klaviatura", answer: "Ma'lumot kiritish" },
+                    { label: "Monitor", answer: "Ma'lumotni chiqarish" },
+                    { label: "Printer", answer: "Qog'ozga chop etish" }
+                ],
+                optionsPool: ["Javobni tanlang", "Ma'lumot kiritish", "Ma'lumotni chiqarish", "Qog'ozga chop etish", "Ovoz yozish"]
+            }
+  ],
+          
+
+           
+
+
+
+            "7-A": [
+                { type: "test",
+                q: "7-A sinf uchun: Hujjatga kiritiladigan har qanday matn,rasm,audio va video, umumiy holda qanday nomlanadi?", 
+                options: [ 
+                      "A. Loyiha xususiyati", 
+                      "B. Trigger", 
+                      "C. Effektlar",
+                      "D. Kontent"], correct: 3 },
+                    
+                 { type: "test",
+                q: "7-A sinf uchun: Animatsiyani boşlaş tugmasi qanday nomlanadi?", 
+                options: [ 
+                      "A. Loyiha xususiyati", 
+                      "B. Trigger", 
+                      "C. Effektlar",
+                      "D. Kontent"], correct: 1 },
+                 
+                      { type: "test",
+                q: "7-A sinf uchun: Slaydlarga qöşiluvçi turli ötişlar va animatsiyalarning umumiy nomi qanday?", 
+                options: [ 
+                      "A. Loyiha xususiyati", 
+                      "B. Trigger", 
+                      "C. Effektlar",
+                      "D. Kontent"], correct: 2 },
+
+                        { type: "test",
+                q: "7-A sinf uchun: Taqdimotning mazmuni,dizayni,,linklari,ötişlari,formatlaş va animatsiyalari körsatilgan reja umumiy holda qanday nomlanadi?", 
+                options: [ 
+                      "A. Loyiha xususiyati", 
+                      "B. Trigger", 
+                      "C. Effektlar",
+                      "D. Kontent"], correct: 0 },
+
+                          { type: "test",
+                q: "7-A sinf uchun: Matn yoki tasvirning ifodalaniş stilini özgartiriş qanday ataladi?", 
+                options: [ 
+                      "A. Dizayin", 
+                      "B. Multimedia", 
+                      "C. Ötiş effekti",
+                      "D. Formatlash"], correct: 3 },
+             
+                            
+                           { type: "test",
+                q: "7-A sinf uchun: Animatsiya,video va audiolar asosida yaratilgan taqdimot qanday nomlanadi?", 
+                options: [ 
+                      "A. Dizayin", 
+                      "B. Multimedia", 
+                      "C. Ötiş effekti",
+                      "D. Formatlash"], correct: 1 },
+
+                            
+                             { type: "test",
+                q: "7-A sinf uchun: Slaydda matn va tasvirlarning ifodalaniş usuli qanday nomlanadi?", 
+                options: [ 
+                      "A. Dizayin", 
+                      "B. Multimedia", 
+                      "C. Ötiş effekti",
+                      "D. Formatlash"], correct: 0 },
+
+                               { type: "test",
+                q: "7-A sinf uchun:Bir slayddan ikkinçi bir slaydga ötish amalini ifodalovçi animatsiya qanday ataladi?", 
+                options: [ 
+                      "A. Dizayin", 
+                      "B. Multimedia", 
+                      "C. Ötiş effekti",
+                      "D. Formatlash"], correct: 2 },
+
+                              { type: "test",
+                q: "7-A sinf uchun:Slayddagi matn va tasvirlarga qöşiluvçi turli harakatlar qanday nomlanadi ", 
+                options: [ 
+                      "A. Dizayin", 
+                      "B. Multimedia", 
+                      "C. Ötiş effekti",
+                      "D. Animatsiya"], correct: 3 },
+
+                               {type: "match",
+                q: "Quyidagi moslashtirishda qurilma va uning vazifasini to‘g‘ri juftlang.",
+                pairs: [
+                    { label: "Klaviatura", answer: "Ma'lumot kiritish" },
+                    { label: "Monitor", answer: "Ma'lumotni chiqarish" },
+                    { label: "Printer", answer: "Qog'ozga chop etish" }
+                ],
+                optionsPool: ["Javobni tanlang", "Ma'lumot kiritish", "Ma'lumotni chiqarish", "Qog'ozga chop etish", "Ovoz yozish"]
+            }
+  ],
+
+
+            "7-B": [
+                 { type: "test",
+                q: "7-B sinf uchun: Hujjatga kiritiladigan har qanday matn,rasm,audio va video, umumiy holda qanday nomlanadi?", 
+                options: [ 
+                      "A. Loyiha xususiyati", 
+                      "B. Trigger", 
+                      "C. Effektlar",
+                      "D. Kontent"], correct: 3 },
+                    
+                 { type: "test",
+                q: "7-B sinf uchun: Animatsiyani boşlaş tugmasi qanday nomlanadi?", 
+                options: [ 
+                      "A. Loyiha xususiyati", 
+                      "B. Trigger", 
+                      "C. Effektlar",
+                      "D. Kontent"], correct: 1 },
+                 
+                      { type: "test",
+                q: "7-B sinf uchun: Slaydlarga qöşiluvçi turli ötişlar va animatsiyalarning umumiy nomi qanday?", 
+                options: [ 
+                      "A. Loyiha xususiyati", 
+                      "B. Trigger", 
+                      "C. Effektlar",
+                      "D. Kontent"], correct: 2 },
+
+                        { type: "test",
+                q: "7-B sinf uchun: Taqdimotning mazmuni,dizayni,,linklari,ötişlari,formatlaş va animatsiyalari körsatilgan reja umumiy holda qanday nomlanadi?", 
+                options: [ 
+                      "A. Loyiha xususiyati", 
+                      "B. Trigger", 
+                      "C. Effektlar",
+                      "D. Kontent"], correct: 0 },
+
+                          { type: "test",
+                q: "7-B sinf uchun: Matn yoki tasvirning ifodalaniş stilini özgartiriş qanday ataladi?", 
+                options: [ 
+                      "A. Dizayin", 
+                      "B. Multimedia", 
+                      "C. Ötiş effekti",
+                      "D. Formatlash"], correct: 3 },
+             
+                            
+                           { type: "test",
+                q: "7-B sinf uchun: Animatsiya,video va audiolar asosida yaratilgan taqdimot qanday nomlanadi?", 
+                options: [ 
+                      "A. Dizayin", 
+                      "B. Multimedia", 
+                      "C. Ötiş effekti",
+                      "D. Formatlash"], correct: 1 },
+
+                            
+                             { type: "test",
+                q: "7-B sinf uchun: Slaydda matn va tasvirlarning ifodalaniş usuli qanday nomlanadi?", 
+                options: [ 
+                      "A. Dizayin", 
+                      "B. Multimedia", 
+                      "C. Ötiş effekti",
+                      "D. Formatlash"], correct: 0 },
+
+                               { type: "test",
+                q: "7-B sinf uchun:Bir slayddan ikkinçi bir slaydga ötish amalini ifodalovçi animatsiya qanday ataladi?", 
+                options: [ 
+                      "A. Dizayin", 
+                      "B. Multimedia", 
+                      "C. Ötiş effekti",
+                      "D. Formatlash"], correct: 2 },
+
+                              { type: "test",
+                q: "7-B sinf uchun:Slayddagi matn va tasvirlarga qöşiluvçi turli harakatlar qanday nomlanadi ", 
+                options: [ 
+                      "A. Dizayin", 
+                      "B. Multimedia", 
+                      "C. Ötiş effekti",
+                      "D. Animatsiya"], correct: 3 },
+
+                              {type: "match",
+                q: "Quyidagi moslashtirishda qurilma va uning vazifasini to‘g‘ri juftlang.",
+                pairs: [
+                    { label: "Klaviatura", answer: "Ma'lumot kiritish" },
+                    { label: "Monitor", answer: "Ma'lumotni chiqarish" },
+                    { label: "Printer", answer: "Qog'ozga chop etish" }
+                ],
+                optionsPool: ["Javobni tanlang", "Ma'lumot kiritish", "Ma'lumotni chiqarish", "Qog'ozga chop etish", "Ovoz yozish"]
+            }
+  ],
+
+
+                      
+            "8-A": [
+                { type: "test", q: "8-A sinf uchun: Algoritm nima?", options: ["A. Qadamlar ketma-ketligi", "B. Rasm", "C. O'yin", "D. Xato"], correct: 0 },
+                 { type: "test", q: "HTML qisqartmasining to‘g‘ri kengaytmasini toping.", options: ["A. High Text Machine Language", "B. Hypertext Markup Language", "C. Hyperlink and Text Markup Language", "D. Home Tool Markup Language"], correct: 1 },
+                { type: "test", q: "HTML qanday til hisoblanadi?", options: ["A. Tasvirlarni tahrirlash dasturi", "B. Veb sahifa yaratish uchun foydalaniladigan kodlash (markerlash) tili", "C. Operatsion tizim turi", "D. Matnli hujjatlarni chop etish dasturi"], correct: 1 },
+                { type: "test", q: "Darslikda HTMLdan tashqari yana qaysi dasturlash va kodlash tillari sanab o‘tilgan?", options: ["A. Python, Scratch, C++", "B. Java, Pascal, Delphi", "C. JavaScript, CSS va PHP", "D. Audacity, Pencil 2D, Adobe Spark"], correct: 2 },
+                { type: "test", q: "Yozilgan HTML kod qayerda interpretatsiya qilinadi (o‘qib olinadi)?", options: ["A. Veb brauzerda", "B. Kalkulyatorda", "C. Tasvir muharririda", "D. Audio pleyerda"], correct: 0 },
+                { type: "test", q: "Agar kodlar bo‘lmaganida veb sahifa qanday shaklda ishlab chiqilishi kerak bo‘lar edi?", options: ["A. Faqat matnli fayl sifatida", "B. Yaxlit tasvir sifatida", "C. Audio yozuv sifatida", "D. Elektron jadval sifatida"], correct: 1 },
+                { type: "test", q: "Veb sayt atamasiga berilgan to‘g‘ri ta'rifni toping.", options: ["A. Veb saytdagi bitta sahifa", "B. Veb sahifa foydalanuvchilari", "C. Veb sahifalar majmuyi", "D. Dasturiy ta'minot turi"], correct: 2 },
+                { type: "test", q: "Veb sahifa nima?", options: ["A. Veb saytdagi bir sahifa", "B. Kompyuter xotirasidagi papka", "C. Internet tezligi", "D. Kod yoziladigan dastur"], correct: 0 },
+                { type: "test", q: "Veb sahifa foydalanuvchilari qanday atama bilan ifodalanadi?", options: ["A. Maqsad", "B. Auditoriya", "C. Manba kodi", "D. Teg"], correct: 1 },
+                { type: "test", q: "Veb sahifani yaratish sababi (masalan, vaqtni maroqli o‘tkazish) nima deb ataladi?", options: ["A. Auditoriya", "B. Teg", "C. Maqsad", "D. Sarlavha"], correct: 2 },
+                { type: "test", q: "Darslikda veb sahifani dastlab sozlab olish va HTML kod yozish uchun qaysi dasturdan foydalanish ko‘rsatilgan?", options: ["A. Scratch", "B. Notepad", "C. Audacity", "D. Paint"], correct: 1 },
+                { type: "test", q: "Veb sahifani yaratish uchun yozilgan HTML kod nima deb ataladi?", options: ["A. Manba kodi", "B. Shablon", "C. Format", "D. Brauzer"], correct: 0 },
+                { type: "test", q: "Kodning veb sahifaga kontent kiritish va stilni qo‘shish uchun qo‘llanadigan bir qismi nima deb ataladi?", options: ["A. Qavs", "B. Slesh", "C. Teg", "D. Fayl"], correct: 2 },
+                { type: "test", q: "Teglarni yaratish uchun kod qatorining boshi va oxirida qanday belgilardan foydalaniladi?", options: ["A. Oddiy qavslar ( )", "B. Kvadrat qavslar [ ]", "C. Burchak qavslar <>", "D. Jingalak qavslar { }"], correct: 2 },
+                { type: "test", q: "HTML kod yozishda burchak qavslar <> va ularning ichidagi matn orasida nima bo‘lmasligi kerak?", options: ["A. Harf", "B. Raqam", "C. Probel (bo‘sh joy)", "D. Nuqta"], correct: 2 },
+                { type: "test", q: "<!DOCTYPE html> yozuvi dasturiy ta'minotga nimani bildiradi?", options: ["A. Sahifa sarlavhasini", "B. Yaratilayotgan hujjat HTML va veb sahifa ekanini", "C. Veb sahifaning tugaganini", "D. Fayl saqlangan papkani"], correct: 1 },
+                { type: "test", q: "Kontentning boshida joylashgan teg qanday nomlanadi?", options: ["A. Yopish tegi", "B. Asosiy teg", "C. Ochish tegi", "D. Sarlavha tegi"], correct: 2 },
+                { type: "test", q: "Yopish tegi ochish tegidan qaysi belgisi bilan farqlanadi?", options: ["A. Yulduzcha (*) bilan", "B. O‘ngga egilgan chiziq — slesh (/) bilan", "C. Undov (!) belgisi bilan", "D. So‘roq (?) belgisi bilan"], correct: 1 },
+                { type: "test", q: "Dasturiy ta'minotga veb sahifa boshlanishini ko‘rsatuvchi tegni toping.", options: ["A. <head>", "B. <body>", "C. <html>", "D. <title>"], correct: 2 },
+                { type: "test", q: "Veb sahifaning bosh qismi va sahifa nomi kabi elementlar qaysi teglar orasiga yoziladi?", options: ["A. <body> va </body>", "B. <head> va </head>", "C. <p> va </p>", "D. <h1> va </h1>"], correct: 1 },
+                { type: "test", q: "Veb sahifadagi barcha asosiy kontent yoziladigan seksiya qaysi teg bilan ochiladi?", options: ["A. <head>", "B. <html>", "C. <body>", "D. <title>"], correct: 2 },
+                { type: "test", q: "Veb sahifa tugashini ko‘rsatuvchi yopish tegini toping.", options: ["A. </head>", "B. </body>", "C. </html>", "D. </title>"], correct: 2 },
+                { type: "test", q: "<title> va </title> teglari orasiga yozilgan sarlavha qayerda aks etadi?", options: ["A. Veb sahifaning o‘rtasida", "B. Veb sahifa ochilganda veb brauzerning yuqori panelida", "C. Kompyuterning ish stolida", "D. Sahifaning eng pastki qismida"], correct: 1 },
+                { type: "test", q: "<title>Sinov sahifa</title> kodi qaysi bo‘lim ichiga joylashtiriladi?", options: ["A. <body> va </body> orasiga", "B. <head> va </head> orasiga", "C. </html> tegidan keyin", "D. <!DOCTYPE html> dan oldin"], correct: 1 },
+                { type: "test", q: "Notepad dasturida yozilgan kodni veb sahifa sifatida saqlash uchun File menyusidan qaysi buyruq tanlanadi?", options: ["A. Open", "B. Print", "C. Save As", "D. New"], correct: 2 },
+                { type: "test", q: "Hujjatni veb sahifa sifatida saqlashda fayl nomi qanday kengaytma bilan tugashi shart?", options: ["A. .txt", "B. .docx", "C. .html", "D. .jpg"], correct: 2 },
+                { type: "test", q: "Qaysi fayl nomi veb sahifa uchun to‘g‘ri saqlangan?", options: ["A. Mening_veb_sahifam.html", "B. Mening_veb_sahifam.txt", "C. Mening_veb_sahifam.exe", "D. Mening_veb_sahifam.pdf"], correct: 0 },
+                { type: "test", q: "Yozilayotgan kodga har gal o‘zgartirish kiritilganda nima qilish talab etiladi?", options: ["A. Kompyuterni o‘chirib yoqish", "B. Faylni qayta saqlash (Save buyrug‘i orqali)", "C. Yangi papka ochish", "D. Brauzerni o‘chirish"], correct: 1 },
+                { type: "test", q: "Saqlangan HTML faylning boshlanishida (yonida) nima aks etadi?", options: ["A. Veb brauzer ikonkasi", "B. Musiqa belgisi", "C. Kamera belgisi", "D. Savat belgisi"], correct: 0 },
+                { type: "test", q: "Agar veb sahifa strukturasi yaratilib, <body> ichiga hech qanday kontent kiritilmagan bo‘lsa, sahifa brauzerda qanday ko‘rinadi?", options: ["A. Xatolik xabari chiqadi", "B. Sahifa bo‘sh turadi, faqat yuqori qatorda kiritilgan sarlavha aks etadi", "C. Sahifa umuman ochilmaydi", "D. Qora ekran paydo bo‘ladi"], correct: 1 },
+
+                { type: "test",
+                 q: "1.1-mashg‘ulot ko‘rsatmasiga ko‘ra, tasvirlarni saqlash uchun Website papkasi ichida qanday nomli yangi papka yaratish kerak?",
+                options: [
+                    "A. Pages",
+                    "B. HTML",
+                    "C. Images",
+                    "D. Text"], correct: 2 },
+
+                      {type: "match",
+                q: "Quyidagi moslashtirishda qurilma va uning vazifasini to‘g‘ri juftlang.",
+                pairs: [
+                    { label: "Klaviatura", answer: "Ma'lumot kiritish" },
+                    { label: "Monitor", answer: "Ma'lumotni chiqarish" },
+                    { label: "Printer", answer: "Qog'ozga chop etish" }
+                ],
+                optionsPool: ["Javobni tanlang", "Ma'lumot kiritish", "Ma'lumotni chiqarish", "Qog'ozga chop etish", "Ovoz yozish"]
+            }
+  ],
+            "8-B": [
+                { type: "test", q: "HTML qisqartmasining to‘g‘ri kengaytmasini toping.", options: ["A. High Text Machine Language", "B. Hypertext Markup Language", "C. Hyperlink and Text Markup Language", "D. Home Tool Markup Language"], correct: 1 },
+                { type: "test", q: "HTML qanday til hisoblanadi?", options: ["A. Tasvirlarni tahrirlash dasturi", "B. Veb sahifa yaratish uchun foydalaniladigan kodlash (markerlash) tili", "C. Operatsion tizim turi", "D. Matnli hujjatlarni chop etish dasturi"], correct: 1 },
+                { type: "test", q: "Darslikda HTMLdan tashqari yana qaysi dasturlash va kodlash tillari sanab o‘tilgan?", options: ["A. Python, Scratch, C++", "B. Java, Pascal, Delphi", "C. JavaScript, CSS va PHP", "D. Audacity, Pencil 2D, Adobe Spark"], correct: 2 },
+                { type: "test", q: "Yozilgan HTML kod qayerda interpretatsiya qilinadi (o‘qib olinadi)?", options: ["A. Veb brauzerda", "B. Kalkulyatorda", "C. Tasvir muharririda", "D. Audio pleyerda"], correct: 0 },
+                { type: "test", q: "Agar kodlar bo‘lmaganida veb sahifa qanday shaklda ishlab chiqilishi kerak bo‘lar edi?", options: ["A. Faqat matnli fayl sifatida", "B. Yaxlit tasvir sifatida", "C. Audio yozuv sifatida", "D. Elektron jadval sifatida"], correct: 1 },
+                { type: "test", q: "Veb sayt atamasiga berilgan to‘g‘ri ta'rifni toping.", options: ["A. Veb saytdagi bitta sahifa", "B. Veb sahifa foydalanuvchilari", "C. Veb sahifalar majmuyi", "D. Dasturiy ta'minot turi"], correct: 2 },
+                { type: "test", q: "Veb sahifa nima?", options: ["A. Veb saytdagi bir sahifa", "B. Kompyuter xotirasidagi papka", "C. Internet tezligi", "D. Kod yoziladigan dastur"], correct: 0 },
+                { type: "test", q: "Veb sahifa foydalanuvchilari qanday atama bilan ifodalanadi?", options: ["A. Maqsad", "B. Auditoriya", "C. Manba kodi", "D. Teg"], correct: 1 },
+                { type: "test", q: "Veb sahifani yaratish sababi (masalan, vaqtni maroqli o‘tkazish) nima deb ataladi?", options: ["A. Auditoriya", "B. Teg", "C. Maqsad", "D. Sarlavha"], correct: 2 },
+                { type: "test", q: "Darslikda veb sahifani dastlab sozlab olish va HTML kod yozish uchun qaysi dasturdan foydalanish ko‘rsatilgan?", options: ["A. Scratch", "B. Notepad", "C. Audacity", "D. Paint"], correct: 1 },
+                { type: "test", q: "Veb sahifani yaratish uchun yozilgan HTML kod nima deb ataladi?", options: ["A. Manba kodi", "B. Shablon", "C. Format", "D. Brauzer"], correct: 0 },
+                { type: "test", q: "Kodning veb sahifaga kontent kiritish va stilni qo‘shish uchun qo‘llanadigan bir qismi nima deb ataladi?", options: ["A. Qavs", "B. Slesh", "C. Teg", "D. Fayl"], correct: 2 },
+                { type: "test", q: "Teglarni yaratish uchun kod qatorining boshi va oxirida qanday belgilardan foydalaniladi?", options: ["A. Oddiy qavslar ( )", "B. Kvadrat qavslar [ ]", "C. Burchak qavslar <>", "D. Jingalak qavslar { }"], correct: 2 },
+                { type: "test", q: "HTML kod yozishda burchak qavslar <> va ularning ichidagi matn orasida nima bo‘lmasligi kerak?", options: ["A. Harf", "B. Raqam", "C. Probel (bo‘sh joy)", "D. Nuqta"], correct: 2 },
+                { type: "test", q: "<!DOCTYPE html> yozuvi dasturiy ta'minotga nimani bildiradi?", options: ["A. Sahifa sarlavhasini", "B. Yaratilayotgan hujjat HTML va veb sahifa ekanini", "C. Veb sahifaning tugaganini", "D. Fayl saqlangan papkani"], correct: 1 },
+                { type: "test", q: "Kontentning boshida joylashgan teg qanday nomlanadi?", options: ["A. Yopish tegi", "B. Asosiy teg", "C. Ochish tegi", "D. Sarlavha tegi"], correct: 2 },
+                { type: "test", q: "Yopish tegi ochish tegidan qaysi belgisi bilan farqlanadi?", options: ["A. Yulduzcha (*) bilan", "B. O‘ngga egilgan chiziq — slesh (/) bilan", "C. Undov (!) belgisi bilan", "D. So‘roq (?) belgisi bilan"], correct: 1 },
+                { type: "test", q: "Dasturiy ta'minotga veb sahifa boshlanishini ko‘rsatuvchi tegni toping.", options: ["A. <head>", "B. <body>", "C. <html>", "D. <title>"], correct: 2 },
+                { type: "test", q: "Veb sahifaning bosh qismi va sahifa nomi kabi elementlar qaysi teglar orasiga yoziladi?", options: ["A. <body> va </body>", "B. <head> va </head>", "C. <p> va </p>", "D. <h1> va </h1>"], correct: 1 },
+                { type: "test", q: "Veb sahifadagi barcha asosiy kontent yoziladigan seksiya qaysi teg bilan ochiladi?", options: ["A. <head>", "B. <html>", "C. <body>", "D. <title>"], correct: 2 },
+                { type: "test", q: "Veb sahifa tugashini ko‘rsatuvchi yopish tegini toping.", options: ["A. </head>", "B. </body>", "C. </html>", "D. </title>"], correct: 2 },
+                { type: "test", q: "<title> va </title> teglari orasiga yozilgan sarlavha qayerda aks etadi?", options: ["A. Veb sahifaning o‘rtasida", "B. Veb sahifa ochilganda veb brauzerning yuqori panelida", "C. Kompyuterning ish stolida", "D. Sahifaning eng pastki qismida"], correct: 1 },
+                { type: "test", q: "<title>Sinov sahifa</title> kodi qaysi bo‘lim ichiga joylashtiriladi?", options: ["A. <body> va </body> orasiga", "B. <head> va </head> orasiga", "C. </html> tegidan keyin", "D. <!DOCTYPE html> dan oldin"], correct: 1 },
+                { type: "test", q: "Notepad dasturida yozilgan kodni veb sahifa sifatida saqlash uchun File menyusidan qaysi buyruq tanlanadi?", options: ["A. Open", "B. Print", "C. Save As", "D. New"], correct: 2 },
+                { type: "test", q: "Hujjatni veb sahifa sifatida saqlashda fayl nomi qanday kengaytma bilan tugashi shart?", options: ["A. .txt", "B. .docx", "C. .html", "D. .jpg"], correct: 2 },
+                { type: "test", q: "Qaysi fayl nomi veb sahifa uchun to‘g‘ri saqlangan?", options: ["A. Mening_veb_sahifam.html", "B. Mening_veb_sahifam.txt", "C. Mening_veb_sahifam.exe", "D. Mening_veb_sahifam.pdf"], correct: 0 },
+                { type: "test", q: "Yozilayotgan kodga har gal o‘zgartirish kiritilganda nima qilish talab etiladi?", options: ["A. Kompyuterni o‘chirib yoqish", "B. Faylni qayta saqlash (Save buyrug‘i orqali)", "C. Yangi papka ochish", "D. Brauzerni o‘chirish"], correct: 1 },
+                { type: "test", q: "Saqlangan HTML faylning boshlanishida (yonida) nima aks etadi?", options: ["A. Veb brauzer ikonkasi", "B. Musiqa belgisi", "C. Kamera belgisi", "D. Savat belgisi"], correct: 0 },
+                { type: "test", q: "Agar veb sahifa strukturasi yaratilib, <body> ichiga hech qanday kontent kiritilmagan bo‘lsa, sahifa brauzerda qanday ko‘rinadi?", options: ["A. Xatolik xabari chiqadi", "B. Sahifa bo‘sh turadi, faqat yuqori qatorda kiritilgan sarlavha aks etadi", "C. Sahifa umuman ochilmaydi", "D. Qora ekran paydo bo‘ladi"], correct: 1 },
+                { type: "test", q: "1.1-mashg‘ulot ko‘rsatmasiga ko‘ra, tasvirlarni saqlash uchun Website papkasi ichida qanday nomli yangi papka yaratish kerak?", options: ["A. Pages", "B. HTML", "C. Images", "D. Text"], correct: 2 },
+            
+              {type: "match",
+                q: "Quyidagi moslashtirishda qurilma va uning vazifasini to‘g‘ri juftlang.",
+                pairs: [
+                    { label: "Klaviatura", answer: "Ma'lumot kiritish" },
+                    { label: "Monitor", answer: "Ma'lumotni chiqarish" },
+                    { label: "Printer", answer: "Qog'ozga chop etish" }
+                ],
+                optionsPool: ["Javobni tanlang", "Ma'lumot kiritish", "Ma'lumotni chiqarish", "Qog'ozga chop etish", "Ovoz yozish"]
+            }
+  ],
+            "9-B": [
+                { type: "test", q: "Oʻlchov dasturlarining kompyuter tizimidagi asosiy vazifasi nimadan iborat?", options: ["A. Faqat oʻyinlar oʻynash va matn yozish", "B. Muayyan fizik qiymat yoki qiymatlar toʻplamini oʻlchash va qayta ishlash", "C. Internet sahifalarini bezash", "D. Kompyuter qismlarini tozalash"], correct: 1 },
+                { type: "test", q: "Atrof-muhitdagi fizik koʻrsatkichlarni avtomatik tarzda oʻlchab, kompyuterga uzatuvchi kiritish qurilmasi qanday ataladi?", options: ["A. Monitor", "B. Printer", "C. Sensor", "D. Dinamik"], correct: 2 },
+                { type: "test", q: "Avtomatik ob-havo stansiyalarida radiatsiyadan himoyalangan va namlikni oʻlchaydigan sensor qayerda joylashtiriladi?", options: ["A. Ochiq quyosh ostida", "B. Radiatsiyadan himoyalangan maxsus gʻilof ichida", "C. Suv ostida", "D. Tuproq tagida"], correct: 1 },
+                { type: "test", q: "Oʻlchov ishlarida kompyuter tizimlarining inson omiliga nisbatan 'Ishonchlilik' afzalligi nimada aks etadi?", options: ["A. Buyruq berilgan vazifani har doim va uzluksiz bajarishida", "B. Ranglarni yaxshi ajratishida", "C. Tez internetga ulanishida", "D. Og'ir yuk ko'tarishida"], correct: 0 },
+                { type: "test", q: "Kimyoviy tajribalarda gaz hosil boʻlishi va bosim ortib kutilmagan xavf yuzaga kelishining oldini olish uchun qaysi sensordan foydalaniladi?", options: ["A. Harorat sensori", "B. Bosim sensori", "C. Yorug'lik sensori", "D. Ovoz sensori"], correct: 1 },
+                { type: "test", q: "Faqat ikkita mantiqiy holatdan (0 va 1) iborat boʻlgan signal turi qanday nomlanadi?", options: ["A. Analog signal", "B. Raqamli signal", "C. Ovozli signal", "D. Yorug'lik signali"], correct: 1 },
+                { type: "test", q: "Inson ovozi, musiqa notalari va tabiatdagi uzluksiz oʻzgaruvchi tebranishlar qaysi signal turiga kiradi?", options: ["A. Analog signal", "B. Raqamli signal", "C. Diskret signal", "D. Mantiqiy signal"], correct: 0 },
+                { type: "test", q: "Sensorlar oʻlchagan analog signallarni kompyuter qayta ishlay oladigan raqamli koʻrinishga oʻtkazuvchi moslama nima deb ataladi?", options: ["A. DAC", "B. ADC", "C. Prosessor", "D. Kontroller"], correct: 1 },
+                { type: "test", q: "Ekologik nazorat tizimlarida avtotransport vositalaridan chiqadigan qaysi zaharli gazlar darajasi sensorlar orqali oʻlchanadi?", options: ["A. Kislorod va vodorod", "B. Uglerod monoksidi (CO) va azot dioksidi (NO2)", "C. Geliy va neon", "D. Azot va argon"], correct: 1 },
+                { type: "test", q: "Shifoxonaning jonlantirish boʻlimida bemorning qondagi kislorod darajasi va qon bosimini kuzatib boruvchi sensorlar qaysi qurilmaga ma'lumot yuboradi?", options: ["A. Oʻyin pristavkasiga", "B. Monitoring kompyuter tizimiga", "C. Uy printeriga", "D. Routerga"], correct: 1 },
+                { type: "test", q: "Boshqaruv dasturlarida mikroprotsessorlar moslamalarni faollashtirish yoki oʻchirishda nimaga tayanadi?", options: ["A. Tasodifiy sonlarga", "B. Oldindan kiritilgan chegaraviy qiymatlarga", "C. Foydalanuvchining kayfiyatiga", "D. Ob-havo ma'lumotiga"], correct: 1 },
+                { type: "test", q: "Toshbaqa grafikada (LOGO tili) toshbaqani 5 katak oldinga harakatlantirish uchun qaysi buyruq kiritiladi?", options: ["A. FORWARD 5", "B. BACK 5", "C. LEFT 5", "D. RIGHT 5"], correct: 0 },
+                { type: "test", q: "Toshbaqa grafikada toshbaqa harakatlanganda ortida chiziqli iz qolmasligi uchun qaysi buyruqdan foydalaniladi?", options: ["A. PENDOWN", "B. PENUP", "C. CLEAR", "D. HOME"], correct: 1 },
+                { type: "test", q: "REPEAT 4 (FORWARD 4, RIGHT 90) buyrugʻi bajarilganda ekranda qanday geometrik shakl hosil boʻladi?", options: ["A. Uchburchak", "B. Aylana", "C. Kvadrat", "D. To'g'ri to'rtburchak"], correct: 2 },
+                { type: "test", q: "Toshbaqa grafikadagi LEFT 90 buyrugʻi qanday amalni bajaradi?", options: ["A. Toshbaqani chap tomonga 90° darajaga buradi", "B. Toshbaqani oʻngga buradi", "C. Qalamni koʻtaradi", "D. Orqaga yurgizadi"], correct: 0 },
+                { type: "test", q: "PENUP buyrugʻidan soʻng toshbaqaning qaytadan chiziq chizib harakatlanishini ta'minlash uchun qaysi buyruq beriladi?", options: ["A. PENUP", "B. PENDOWN", "C. START", "D. DRAW"], correct: 1 },
+                { type: "test", q: "Avtomatlashtirilgan gaz plitalarida pishirish vaqti tugaganligini foydalanuvchiga bildirish uchun mikroprotsessor qaysi chiqish qurilmalarini ishga tushiradi?", options: ["A. Chiroq va tovushli signal (bazzer)", "B. Suv purkagich", "C. Sovutgich fanati", "D. Konditsioner"], correct: 0 },
+                { type: "test", q: "Markaziy isitish va konditsioner kontrollerni boshqaruvchi tizimda joriy xona haroratini aniqlab turuvchi ichki element qaysi?", options: ["A. Namlik sensori", "B. Harorat sensori", "C. Harakat sensori", "D. Bosim sensori"], correct: 1 },
+                { type: "test", q: "Markaziy isitish tizimida mikroprotsessor harorat sensorini har doim emas, ma'lum vaqt oraligʻida (masalan, 5 daqiqa) tekshirishining sababi nimada?", options: ["A. Kompyuter qizib ketmasligi uchun", "B. Isitish qozoni xona haroratini oʻzgartirishi uchun ma'lum vaqt talab etilishi", "C. Elektr toki tejalishi uchun", "D. Dastur xatosi oldini olish uchun"], correct: 1 },
+                { type: "test", q: "Kompyuterlashgan issiqxonada quyosh nuri me'yordan ortiq qizdirib yuborishining oldini olish uchun qaysi sensor va moslama birgalikda ishlaydi?", options: ["A. Yorugʻlik sensori va elektr motorli pardalar", "B. Ovoz sensori va dinamik", "C. Suv sensori va nasos", "D. Gaz sensori va ventilyator"], correct: 0 },
+                { type: "test", q: "Issiqxonada oʻsimliklarga avtomatik suv purkash tizimini yoqish yoki oʻchirishga qaysi sensor ma'lumot beradi?", options: ["A. Namlik sensori", "B. Harorat sensori", "C. Yorug'lik sensori", "D. Bosim sensori"], correct: 0 },
+                { type: "test", q: "Bino xavfsizlik signalizatsiyasida eshik yoki deraza ochilganini aniqlash uchun qanday vositalardan foydalaniladi?", options: ["A. Magnit va kontakt switchlar", "B. Kamera va mikrofon", "C. Tarmoq kabeli", "D. Qattiq disk"], correct: 0 },
+                { type: "test", q: "Ob'ektdan tarqalayotgan infraqizil nurlanish shaklining oʻzgarishi orqali harakatni aniqlovchi sensor turi qanday ataladi?", options: ["A. PIR (passiv infraqizil) sensori", "B. Ultratovush sensori", "C. Bosim sensori", "D. Harorat sensori"], correct: 0 },
+                { type: "test", q: "Kompyuterda matematik formulalar yordamida muayyan ob'ekt yoki jarayonning xatti-harakatini ifodalash nima deyiladi?", options: ["A. Ma'lumotlar bazasi", "B. Kompyuterda modellashtirish", "C. Matn muharriri", "D. Fayl tizimi"], correct: 1 },
+                { type: "test", q: "Elektron jadvallarda (masalan, Excel) turli gipotezalarni sinab koʻrish va prognoz qilish uchun ishlatiladigan mantiqiy savollar usuli qanday ataladi?", options: ["A. 'What-If' ('Agar... nima boʻladi?') tahlili", "B. 'Copy-Paste' usuli", "C. 'Drag-and-Drop' usuli", "D. 'Print Preview' usuli"], correct: 0 },
+                { type: "test", q: "Yangi avtomobil yoki binoni qurishdan avval uni kompyuterda modellashtirishning asosiy iqtisodiy va amaliy afzalligi nimada?", options: ["A. Vaqtni ko'p sarflash", "B. Inson hayotini xavfga qoʻymasdan va ulkan mablagʻ sarflamasdan turli sinovlarni oʻtkazish imkoniyati", "C. Qog'oz tejash", "D. Faqat chiroyli rasm olish"], correct: 1 },
+            ],
+            "10-A": [
+                { type: "test", q: "Kompyuter tarmog‘i deb nimaga aytiladi?", options: ["A. Ikki yoki undan ortiq qurilmaning aloqa va resurs almashish uchun bog‘lanishiga", "B. Faqat bitta kompyuterda fayl saqlashga", "C. Kompyuterning ichki qismlariga", "D. Faqat internet brauzeriga"], correct: 0 },
+                { type: "test", q: "Tarmoq arxitekturasi nimani anglatadi?", options: ["A. Monitorning ekran o‘lchamini", "B. Kompyuterning operatsion tizimini", "C. Fayl nomining uzunligini", "D. Tarmoqning yaratilish usuli va tuzilishini"], correct: 3 },
+                { type: "test", q: "Kompyuterlar ilk bor ARPANET orqali qaysi yilda o‘zaro tarmoqqa ulangan?", options: ["A. 1999-yilda", "B. 2009-yilda", "C. 1969-yilda", "D. 1989-yilda"], correct: 2 },
+                { type: "test", q: "Tarmoqdan foydalanishning asosiy afzalliklaridan biri qaysi?", options: ["A. Internetdan foydalanishni cheklash", "B. Ma’lumot va resurslarni foydalanuvchilar o‘rtasida almashish", "C. Kompyuterlarni bir-biridan ajratish", "D. Barcha fayllarni avtomatik o‘chirish"], correct: 1 },
+                { type: "test", q: "Tarmoqda fayl serverlari odatda nima uchun ishlatiladi?", options: ["A. Ma’lumotlarni markaziy bazada saqlash uchun", "B. Monitor tasvirini kattalashtirish uchun", "C. Klaviatura tugmalarini sozlash uchun", "D. Kompyuter korpusini sovitish uchun"], correct: 0 },
+                { type: "test", q: "Tarmoqdagi xavfsizlik muammosi nimaga olib kelishi mumkin?", options: ["A. Printer tezligining oshishiga", "B. Ekran rangining o‘zgarishiga", "C. Kompyuter xotirasining ko‘payishiga", "D. Begona foydalanuvchining ma’lumotlardan ruxsatsiz foydalanishiga"], correct: 3 },
+                { type: "test", q: "Tarmoq yetarli himoyalanmagan bo‘lsa, qanday xavf yuzaga keladi?", options: ["A. Internet tezligi doimo ortadi", "B. Fayllar o‘z-o‘zidan zaxiralanadi", "C. Viruslar bir kompyuterdan boshqasiga tarqalishi mumkin", "D. Barcha kompyuterlar avtomatik yangilanadi"], correct: 2 },
+                { type: "test", q: "LAN atamasining to‘liq inglizcha shakli qaysi?", options: ["A. Local Automatic Network", "B. Local Area Network", "C. Large Access Number", "D. Long Area Node"], correct: 1 },
+                { type: "test", q: "WAN atamasining to‘liq inglizcha shakli qaysi?", options: ["A. Wide Area Network", "B. Wireless Access Name", "C. World Automatic Node", "D. Web Area Number"], correct: 0 },
+                { type: "test", q: "Lokal hududiy tarmoq (LAN) qanday hududni qamrab oladi?", options: ["A. Butun dunyoni", "B. Bir nechta mamlakatni", "C. Faqat qit’alarni", "D. Kichik geografik hududni"], correct: 3 },
+                { type: "test", q: "Global hududiy tarmoq (WAN) qanday hududni qamrab oladi?", options: ["A. Faqat bitta binoni", "B. Faqat bitta sinfxonani", "C. Yirik geografik hududni", "D. Faqat bitta xonani"], correct: 2 },
+                { type: "test", q: "Quyidagilardan qaysi biri LAN tarmog‘i ishlatiladigan joyga misol bo‘ladi?", options: ["A. Xalqaro sun’iy yo‘ldosh tarmog‘i", "B. Maktab yoki uy", "C. Bir nechta mamlakatni bog‘lovchi tarmoq", "D. Butun dunyo bo‘ylab aloqa tizimi"], correct: 1 },
+                { type: "test", q: "Kitobda internet qaysi tarmoq turiga misol sifatida keltirilgan?", options: ["A. WAN", "B. Faqat LAN", "C. Peer qurilma", "D. Shaxsiy printer"], correct: 0 },
+                { type: "test", q: "WAN tarmog‘ini hosil qilish uchun odatda nima qilinadi?", options: ["A. Bitta kompyuter o‘chiriladi", "B. Barcha printerlar uzib qo‘yiladi", "C. Faqat bitta klaviatura ulanadi", "D. Bir nechta LAN tarmoqlari o‘zaro ulanadi"], correct: 3 },
+                { type: "test", q: "Kitobdagi taqqoslashga ko‘ra, LAN ma’lumot almashish tezligi qanchagacha yetishi mumkin?", options: ["A. 1 soniyada 1 kilobitgacha", "B. 1 daqiqada 1 gigabitgacha", "C. 1 soniyada 1 gigabitgacha", "D. 1 soniyada 200 megabitgacha"], correct: 2 },
+                { type: "test", q: "Kitobdagi taqqoslashga ko‘ra, WAN ma’lumot almashish tezligi odatda qanchagacha cheklangan?", options: ["A. 1 daqiqada 200 gigabitgacha", "B. 1 soniyada 200 megabitgacha", "C. 1 soniyada 1 gigabitgacha", "D. 1 soniyada 10 gigabitgacha"], correct: 1 },
+                { type: "test", q: "Nima sababdan WAN tarmog‘ida ma’lumot uzatish xatolari ehtimoli yuqoriroq?", options: ["A. Ma’lumot uzoq masofaga yuborilgani uchun", "B. Faqat bitta kompyuter ishlatilgani uchun", "C. LAN kabeli ishlatilgani uchun", "D. Ma’lumotlar markazda saqlangani uchun"], correct: 0 },
+                { type: "test", q: "LAN tarmog‘ida ma’lumot uzatishdagi xatolar nima sababdan kamroq kuzatiladi?", options: ["A. U doimo sun’iy yo‘ldoshdan foydalangani uchun", "B. Unda server bo‘lmagani uchun", "C. Unda hech qanday kabel ishlatilmagani uchun", "D. Ma’lumot qisqa masofaga yuborilgani uchun"], correct: 3 },
+                { type: "test", q: "WAN tarmog‘ida aloqa uchun qaysi vositalar ishlatilishi mumkin?", options: ["A. Faqat klaviatura va sichqoncha", "B. Faqat printer kabeli", "C. Umumiy telefon tarmog‘i, ajratilgan liniyalar, uzatish antennalari va sun’iy yo‘ldosh aloqasi", "D. Faqat USB flesh-xotira"], correct: 2 },
+                { type: "test", q: "LAN tarmog‘ida xavfsizlikni ta’minlash WANga nisbatan nima uchun osonroq?", options: ["A. Unda barcha qurilmalar server bo‘lgani uchun", "B. Qurilmalar va ulanishlar soni kamroq bo‘lgani uchun", "C. U butun dunyoni qamrab olgani uchun", "D. Unda hech qanday ma’lumot uzatilmagani uchun"], correct: 1 },
+                { type: "test", q: "Tarmoq serverining vazifalaridan biri qaysi?", options: ["A. Foydalanuvchi nomi va parollar bazasini saqlash", "B. Monitor yorqinligini boshqarish", "C. Klaviaturani tozalash", "D. Kompyuter stolini sozlash"], correct: 0 },
+                { type: "test", q: "Server foydalanuvchilarga yana qanday xizmat ko‘rsatishi mumkin?", options: ["A. Xonadagi haroratni o‘lchash", "B. Elektr energiyasini ishlab chiqarish", "C. Kompyuter korpusini almashtirish", "D. Ma’lumotlarni saqlash va ularga kirish darajalarini belgilash"], correct: 3 },
+                { type: "test", q: "Kliyent-server tarmog‘ida server qanday kompyuter hisoblanadi?", options: ["A. Tarmoqqa ulanmagan kompyuter", "B. Faqat printer vazifasini bajaruvchi qurilma", "C. Tarmoq resurslarini taqdim etuvchi va markaziy vazifalarni bajaruvchi kompyuter", "D. Faqat o‘yin o‘ynaydigan kompyuter"], correct: 2 },
+                { type: "test", q: "Kliyent deb nimaga aytiladi?", options: ["A. Internet kabeliga", "B. Ma’lumot va resurslardan foydalanish uchun serverga ulanadigan kompyuter", "C. Tarmoqni boshqaradigan yagona serverga", "D. Tarmoqqa ulanmagan printerga"], correct: 1 },
+                { type: "test", q: "Kliyent-server tarmog‘i odatda nimalardan tarkib topadi?", options: ["A. Kamida bitta server va ko‘plab kliyentlardan", "B. Faqat bitta printerdan", "C. Faqat ikkita klaviaturadan", "D. Faqat simsiz routerdan"], correct: 0 },
+                { type: "test", q: "Katta kliyent-server tarmog‘ida bir nechta serverdan foydalanish nima uchun qulay?", options: ["A. Barcha kliyentlarni tarmoqdan uzish uchun", "B. Ma’lumotlarni yo‘qotish uchun", "C. Tarmoqni sekinlashtirish uchun", "D. Har bir serverga muayyan vazifa yuklab, yuklamani taqsimlash uchun"], correct: 3 },
+                { type: "test", q: "Peer-to-peer tarmog‘ining asosiy xususiyati qaysi?", options: ["A. Faqat bitta kliyent ishlaydi", "B. Har bir kompyuter boshqa kompyuterni boshqaradi", "C. Uni boshqaradigan markaziy server bo‘lmaydi", "D. Barcha ma’lumotlar faqat bitta serverda saqlanadi"], correct: 2 },
+                { type: "test", q: "Peer-to-peer tarmog‘ida har bir kompyuter qanday ataladi?", options: ["A. Server xonasi", "B. Peer", "C. Router", "D. Modem"], correct: 1 },
+                { type: "test", q: "Peer-to-peer tarmog‘ida foydalanuvchilar ma’lumotlarni odatda qayerda saqlaydi?", options: ["A. O‘z kompyuterlarida", "B. Faqat markaziy serverda", "C. Faqat internet provayderida", "D. Faqat printer xotirasida"], correct: 0 },
+                { type: "test", q: "Peer-to-peer tarmog‘ida printerdan umumiy foydalanish qanday amalga oshishi mumkin?", options: ["A. Printer faqat serverga ulanadi", "B. Boshqa kompyuterlar printerni ko‘ra olmaydi", "C. Printer internetni o‘chirib qo‘yadi", "D. Bir peerga ulangan printerdan boshqa peerlar ham foydalanadi"], correct: 3 }
+            ],
+            "11-A": [
+                { type: "test", q: "Elektron pul o'tkazmalari nima?", options: ["A. Pul mablag'larini elektron tizimlar orqali bir hisobdan boshqasiga o'tkazish", "B. Faqat naqd pulni sanash", "C. Qog'oz hujjatlarni chop etish", "D. Kompyuter xotirasini tozalash"], correct: 0 },
+                { type: "test", q: "Elektron pul o'tkazmalarining asosiy qulayligi nimada?", options: ["A. Pulni faqat bank binosida o'tkazish mumkin", "B. Pul o'tkazmalarini tez va masofadan bajarish imkonida", "C. Internetdan foydalanishni taqiqlashida", "D. Faqat qog'oz pul bilan ishlashida"], correct: 1 },
+                { type: "test", q: "Elektron pul o'tkazmasini amalga oshirishda qaysi ma'lumot muhim?", options: ["A. Qabul qiluvchining hisob raqami yoki to'lov rekvizitlari", "B. Kompyuter monitorining rangi", "C. Printer modeli", "D. Klaviatura turi"], correct: 0 },
+                { type: "test", q: "To'g'ridan-to'g'ri debetlash (direct debit) nimani anglatadi?", options: ["A. Hisobdan oldindan ruxsat berilgan to'lovni avtomatik yechish", "B. Bankomatdan naqd pul olish", "C. Hisobdagi pulni qo'lda sanash", "D. Plastik kartani chop etish"], correct: 0 },
+                { type: "test", q: "Elektron to'lovlarda xavfsizlikni ta'minlash uchun nima qilish kerak?", options: ["A. Parolni hammaga aytish", "B. Maxfiy ma'lumotlarni himoya qilish va ishonchli tizimdan foydalanish", "C. Har qanday havolani ochish", "D. PIN-kodni ochiq joyga yozib qo'yish"], correct: 1 },
+                { type: "test", q: "Elektron to'lov tizimida PIN-kod yoki parolning vazifasi nima?", options: ["A. Foydalanuvchini tasdiqlash va hisobni himoyalash", "B. Ekran yorqinligini oshirish", "C. Internet tezligini o'lchash", "D. Fayllarni siqish"], correct: 0 },
+                { type: "test", q: "Elektron pul o'tkazmasida noto'g'ri rekvizit kiritilsa, qanday muammo yuzaga kelishi mumkin?", options: ["A. Pul noto'g'ri hisobga o'tishi yoki o'tkazma bajarilmasligi", "B. Monitor o'chib qolishi", "C. Printer siyohi tugashi", "D. Klaviatura tili almashishi"], correct: 0 },
+                { type: "test", q: "Shtrix-kod (barcode) qanday maqsadda qo'llanadi?", options: ["A. Mahsulot haqidagi ma'lumotni kod ko'rinishida saqlash va tez o'qish", "B. Mahsulotni isitish", "C. Ombor xonasini yoritish", "D. Internetga ulanish tezligini oshirish"], correct: 0 },
+                { type: "test", q: "Do'konda mahsulot shtrix-kodi skaner orqali o'qilganda qanday qulaylik yaratiladi?", options: ["A. Mahsulot ma'lumotlarini tez aniqlash va savdoni qayd etish", "B. Mahsulot og'irligini o'zgartirish", "C. Elektr energiyasini ishlab chiqarish", "D. Mahsulot rangini almashtirish"], correct: 0 },
+                { type: "test", q: "Zaxiralarni avtomatik boshqarish tizimining asosiy vazifasi nima?", options: ["A. Ombordagi mahsulot miqdorini kuzatish va hisobini yuritish", "B. Faqat xodimlarning ish vaqtini belgilash", "C. Hujjatlarni bezash", "D. Kompyuter o'yinlarini ishga tushirish"], correct: 0 },
+                { type: "test", q: "Mahsulot sotilganda avtomatik zaxira tizimida odatda qanday o'zgarish yuz beradi?", options: ["A. Ombordagi mavjud miqdor kamaytiriladi", "B. Mahsulot miqdori cheksiz ortadi", "C. Barcha hisoblar o'chiriladi", "D. Mahsulot nomi avtomatik o'zgaradi"], correct: 0 },
+                { type: "test", q: "Zaxira miqdori belgilangan eng kam darajaga tushganda tizim nima qilishi mumkin?", options: ["A. Yangi mahsulot buyurtma qilish zarurligi haqida ogohlantiradi", "B. Barcha mahsulotlarni sotuvdan chiqaradi", "C. Kompyuterni o'chiradi", "D. Hisob-kitobni to'xtatadi"], correct: 0 },
+                { type: "test", q: "Real vaqt rejimida qayta ishlash nimani anglatadi?", options: ["A. Ma'lumot kelishi bilan darhol qayta ishlash va yangilash", "B. Ma'lumotlarni faqat yil oxirida ko'rish", "C. Ma'lumotlarni qog'ozga ko'chirish", "D. Kompyuterni belgilangan vaqtda o'chirish"], correct: 0 },
+                { type: "test", q: "Paketli (batch) qayta ishlash usulida ma'lumotlar qanday qayta ishlanadi?", options: ["A. To'plangan ma'lumotlar ma'lum vaqtda birgalikda qayta ishlanadi", "B. Har bir ma'lumot darhol alohida qayta ishlanadi", "C. Ma'lumotlar umuman saqlanmaydi", "D. Faqat ovozli buyruqlar qayta ishlanadi"], correct: 0 },
+                { type: "test", q: "Do'kondagi savdo va ombor zaxirasi o'zaro bog'langan bo'lsa, sotuvdan keyin qanday foyda olinadi?", options: ["A. Zaxira miqdori avtomatik yangilanib, hisob aniq yuritiladi", "B. Mahsulotlar nomi o'chib ketadi", "C. Savdo ma'lumotlari yo'qoladi", "D. Ombordagi mahsulotlar o'z-o'zidan ko'payadi"], correct: 0 }
+
+            ],
+        };
+
+        let questions = [];
+        let answers = [];
+        let currentQuestion = 0;
+        let participant = {};
+
+        const $ = (id) => document.getElementById(id);
+
+        function startQuiz() {
+            const region = $("regionInput").value.trim();
+            const district = $("districtInput").value.trim();
+            const school = $("schoolInput").value.trim();
+            const fullname = $("fullnameInput").value.trim();
+            const classValue = $("classSelect").value;
+
+            if (!region || !district || !school || !fullname) {
+                alert("Iltimos, viloyat, tuman, maktab va familiya-ismni to‘liq kiriting.");
+                return;
+            }
+
+            questions = allClassQuestions[classValue] || [];
+            if (questions.length === 0) {
+                alert("Tanlangan sinf uchun hozircha savollar mavjud emas.");
+                return;
+            }
+
+            participant = { region, district, school, fullname, classValue };
+            answers = new Array(questions.length).fill(null);
+            currentQuestion = 0;
+
+            $("displayUserName").textContent = fullname;
+            $("startPage").style.display = "none";
+            $("resultPage").style.display = "none";
+            $("gamePage").style.display = "block";
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQuestion];
+            const correctCount = answers.reduce((n, answer, i) =>
+                n + (answer === questions[i].correct ? 1 : 0), 0);
+
+            $("progressText").textContent = `${currentQuestion + 1} / ${questions.length}`;
+            $("scoreText").textContent = `${correctCount} ball`;
+            $("progressBar").style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            $("taskTitle").textContent = `TOPSHIRIQ ${currentQuestion + 1}`;
+            $("questionText").textContent = q.q;
+            $("optionsContainer").innerHTML = "";
+
+            q.options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "option-btn" + (answers[currentQuestion] === index ? " selected" : "");
+                button.textContent = option;
+                button.addEventListener("click", () => {
+                    answers[currentQuestion] = index;
+                    renderQuestion();
+                });
+                $("optionsContainer").appendChild(button);
+            });
+
+            $("prevBtn").disabled = currentQuestion === 0;
+            $("prevBtn").style.opacity = currentQuestion === 0 ? "0.45" : "1";
+            $("nextBtn").textContent = currentQuestion === questions.length - 1 ? "Yakunlash ✓" : "Keyingi →";
+            $("navInstruction").textContent = answers[currentQuestion] === null
+                ? "Javob variantini tanlang."
+                : "Javob belgilandi.";
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (answers[currentQuestion] === null) {
+                alert("Davom etishdan oldin javob variantini belgilang.");
+                return;
+            }
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            const correct = answers.reduce((n, answer, i) =>
+                n + (answer === questions[i].correct ? 1 : 0), 0);
+            const percent = Math.round(correct / questions.length * 100);
+
+            $("gamePage").style.display = "none";
+            $("resultPage").style.display = "block";
+            $("finalScoreDisplay").textContent = `${correct} / ${questions.length} (${percent}%)`;
+            $("resName").textContent = participant.fullname;
+            $("resRegion").textContent = `${participant.region}, ${participant.district}`;
+            $("resSchool").textContent = participant.school;
+
+            if (percent >= 90) $("resultMessage").textContent = "A’lo! Bilimingiz juda yuqori!";
+            else if (percent >= 70) $("resultMessage").textContent = "Yaxshi natija! Barakalla!";
+            else if (percent >= 50) $("resultMessage").textContent = "Qoniqarli. Yana mashq qiling!";
+            else $("resultMessage").textContent = "Ko‘proq tayyorlaning. Sizda albatta uddalash imkoniyati bor!";
+
+            // Google Apps Script manzili sozlangan bo‘lsa, natijani yuborishga urinadi.
+            const form = $("hiddenForm");
+            if (form.action && form.action.includes("/exec")) {
+                $("f_name").value = participant.fullname;
+                $("f_class").value = participant.classValue;
+                $("f_region").value = participant.region;
+                $("f_district").value = participant.district;
+                $("f_school").value = participant.school;
+                $("f_score").value = `${correct}/${questions.length}`;
+                $("f_percentage").value = percent;
+                form.submit();
+            }
+
+            const audio = $("applauseSound");
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(() => {});
+            }
+        }
+
+        function restartQuiz() {
+            $("resultPage").style.display = "none";
+            $("gamePage").style.display = "none";
+            $("startPage").style.display = "block";
+        }
+    </script>
+</body>
+</html>
